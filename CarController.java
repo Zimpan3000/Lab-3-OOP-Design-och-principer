@@ -30,7 +30,11 @@ public class CarController {
         // Instance of this class
         CarController cc = new CarController();
 
-         cc.vehicles.add(new Volvo240());
+        cc.vehicles.add(new Volvo240());
+
+        Saab95 newSaab = new Saab95();
+        newSaab.addPositionX(100.0);
+        cc.vehicles.add(newSaab);
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -44,11 +48,22 @@ public class CarController {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            System.out.println(vehicles);
             for (Vehicle car : vehicles) {
                 car.move();
                 int x = (int) Math.round(car.getPositionX());
                 int y = (int) Math.round(car.getPositionY());
-                if (x && y)
+                if (y >= 501 || y < 0) {
+                    car.addPositionY(500.0);
+                    car.turnRight();
+                    car.turnRight();
+                }
+                if (x >= 701 || x < 0) {
+                    car.addPositionX(700.0);
+                    car.turnRight();
+                    car.turnRight();
+                }
+                
                 frame.drawPanel.moveit(x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
