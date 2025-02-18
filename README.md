@@ -1,1 +1,3 @@
-# Lab-3-OOP-Design-och-principer
+# laboration-2
+
+Se Canvas för instruktioner.
