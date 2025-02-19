@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
+import java.awt.Point;
 /*
 * This class represents the Controller part in the MVC pattern.
 * It's responsibilities is to listen to the View and responds in a appropriate manner by
@@ -15,6 +15,7 @@ public class CarController {
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
     ArrayList<Vehicle> vehicles = new ArrayList<>();
+    Workshop<Volvo240> VolvoWorkshop = new Workshop<>(5, new Volvo240(),0., 300.);
     // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
     private Timer timer = new Timer(delay, new TimerListener());
@@ -31,14 +32,15 @@ public class CarController {
         CarController cc = new CarController();
 
         
-
         Scania newsScania = new Scania();
         newsScania.addPositionX(100.0);
         Saab95 newSaab = new Saab95();
         newSaab.addPositionX(200.0);
+        Volvo240 newVolvo240 = new Volvo240();
+        
         cc.vehicles.add(newSaab);
         cc.vehicles.add(newsScania);
-        cc.vehicles.add(new Volvo240());
+        cc.vehicles.add(newVolvo240);
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
 
@@ -62,6 +64,10 @@ public class CarController {
                 if (x >= 701 || x < 0) {
                     car.turnRight();
                     car.turnRight();
+                }
+                if (car instanceof Volvo240 && car.getPositionX() == VolvoWorkshop.Xgetposition() && car.getPositionY() == VolvoWorkshop.Ygetposition()) {
+                    
+                VolvoWorkshop.fixCar((Volvo240) car); 
                 }
                 // if x and y of car and car == volvo and == x and y of workshop
                 // fixcar

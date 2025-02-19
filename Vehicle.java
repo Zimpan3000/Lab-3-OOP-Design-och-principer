@@ -67,10 +67,12 @@ public abstract class Vehicle implements Moveable {
     }
 
     public void setOutOfOrderOn () {
+        stopEngine();
         outOfOrder = true;
     }
 
     public void setOutOfOrderOff () {
+        startEngine();
         outOfOrder = false;
     }
 
