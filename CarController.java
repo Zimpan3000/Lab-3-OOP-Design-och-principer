@@ -30,8 +30,15 @@ public class CarController {
         // Instance of this class
         CarController cc = new CarController();
 
-         cc.vehicles.add(new Volvo240());
+        
 
+        Scania newsScania = new Scania();
+        newsScania.addPositionX(100.0);
+        Saab95 newSaab = new Saab95();
+        newSaab.addPositionX(200.0);
+        cc.vehicles.add(newSaab);
+        cc.vehicles.add(newsScania);
+        cc.vehicles.add(new Volvo240());
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
 
@@ -48,8 +55,17 @@ public class CarController {
                 car.move();
                 int x = (int) Math.round(car.getPositionX());
                 int y = (int) Math.round(car.getPositionY());
-                if (x && y)
-                frame.drawPanel.moveit(x, y);
+                if (y >= 501 || y < 0) {
+                    car.turnRight();
+                    car.turnRight();
+                }
+                if (x >= 701 || x < 0) {
+                    car.turnRight();
+                    car.turnRight();
+                }
+                // if x and y of car and car == volvo and == x and y of workshop
+                // fixcar
+                frame.drawPanel.moveit(x, y, car.getmodelname());
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }
@@ -61,8 +77,7 @@ public class CarController {
     void gas(int amount) {
         double gas =  amount / 100.0;
         System.out.println(gas);
-        for (Vehicle car : vehicles
-                ) {
+        for (Vehicle car : vehicles) {
             car.gas(gas);
             System.out.println(car.getCurrentSpeed());
         }
@@ -71,6 +86,7 @@ public class CarController {
     void brake(int amount) {
         double brake = ((double) amount) / 100;
         for (Vehicle car : vehicles) {
+            System.out.println("brake 0");
             car.brake(brake);
         }
     }
@@ -107,7 +123,19 @@ public class CarController {
         }
     }
     
+    void stopAllCars () {
+        for (Vehicle car : vehicles) {
+            car.stopEngine();
+        }
 
+    }
+
+    void startAllCars () {
+        for (Vehicle car : vehicles) {
+            car.startEngine();
+        }
+
+    }
 }
 
 

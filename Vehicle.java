@@ -99,16 +99,14 @@ public abstract class Vehicle implements Moveable {
     
     
     public void gas(double amount) {
-        if (amount > 0 && amount < 1) {
-        
+        if (amount > 0 && amount <= 1) {
          incrementSpeed(amount);
-         
         }
     }
 
 
     public void brake(double amount) {
-        if (amount > 0 && amount < 1) {
+        if (amount > 0 && amount <= 1) {
             decrementSpeed(amount);
             }
         
@@ -133,16 +131,20 @@ public abstract class Vehicle implements Moveable {
         switch (direction.y) {
             case 1:
                 direction = new Point(-1,0);
+                break;
     
             case 0:
                 if (direction.x == -1) {
                      direction = new Point(0,-1);
+                     break;
                     
                 } else if (direction.x == 1) {
                     direction = new Point(0,1);
+                    break;
                 }
             case -1:
                 direction = new Point(1,0);
+                break;
                 
              default:
                 break;
@@ -155,16 +157,20 @@ public abstract class Vehicle implements Moveable {
         switch (direction.y) {
             case 1:
                 direction = new Point(1,0);
+                break;
     
             case 0:
                 if (direction.x == -1) {
                      direction = new Point(0,1);
+                     break;
                     
                 } else if (direction.x == 1) {
                     direction = new Point(0,-1);
+                    break;
                 }
             case -1:
                 direction = new Point(-1,0);
+                break;
                 
              default:
                 break;
@@ -186,6 +192,9 @@ public abstract class Vehicle implements Moveable {
     
     public void addPositionY (Double y) {
         dictionary.put("y", y);
+    }
+    public Point getDirection () {
+        return direction;
     }
     
     

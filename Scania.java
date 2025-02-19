@@ -7,7 +7,7 @@ public class Scania extends Truck implements loadFunctionality {
     private int minangle = 0;
 
     public Scania(){
-        super(2,0.9,10,Color.MAGENTA, "scania",6);
+        super(2,0.9,10,Color.MAGENTA, "Scania",6);
     }
 
     

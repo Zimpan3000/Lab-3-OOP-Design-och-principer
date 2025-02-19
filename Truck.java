@@ -3,7 +3,7 @@ import java.awt.*;
 
 public abstract class Truck extends Vehicle implements truckBedfunctionality{
     
-    private double TruckSpeedFactor = 0.5;
+    private double TruckSpeedFactor = 10;
     private boolean TruckBedIsClosed = true;
     
     
@@ -43,7 +43,7 @@ public abstract class Truck extends Vehicle implements truckBedfunctionality{
 
     @Override
     public void gas(double amount) {
-        if (amount > 0 && amount < 1) {
+        if (amount > 0 && amount <= 1) {
                 if (getTruckBedIsClosed()) {
                     incrementSpeed(amount);
                 }
@@ -53,7 +53,7 @@ public abstract class Truck extends Vehicle implements truckBedfunctionality{
 
     @Override
     public void brake(double amount){
-        if (amount > 0 && amount <1){
+        if (amount > 0 && amount <= 1){
             if (getTruckBedIsClosed()){
                 decrementSpeed(amount);
             }
