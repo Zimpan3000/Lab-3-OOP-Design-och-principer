@@ -1,3 +1,3 @@
 # laboration-2
 
-Se Canvas för instruktioner.
+Dont read main, master is the correct version
