@@ -9,7 +9,7 @@ import java.awt.Point;
 * modifying the model state and the updating the view.
  */
 
-public class CarController {
+public class CarController implements CarcontrollerMethods{
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
@@ -65,10 +65,13 @@ public class CarController {
                     car.turnRight();
                     car.turnRight();
                 }
-                if (car instanceof Volvo240 && car.getPositionX() == VolvoWorkshop.Xgetposition() && car.getPositionY() == VolvoWorkshop.Ygetposition()) {
-                    
+                if (car instanceof Volvo240 && isCarClose(car)) {
+                car.addPositionX(VolvoWorkshop.Xgetposition());
+                car.addPositionY(VolvoWorkshop.Ygetposition());
+
                 VolvoWorkshop.fixCar((Volvo240) car); 
                 }
+
                 // if x and y of car and car == volvo and == x and y of workshop
                 // fixcar
                 frame.drawPanel.moveit(x, y, car.getmodelname());
@@ -78,9 +81,15 @@ public class CarController {
         }
     }
 
+    private Boolean isCarClose(Vehicle car) {
+        Double diffX = Math.abs(car.getPositionX() - VolvoWorkshop.Xgetposition());
+        Double diffY = Math.abs(car.getPositionY() - VolvoWorkshop.Ygetposition());
+        return(10 >= diffX && diffX >= 0 && diffY >= 0 && diffY <= 10);
+    }
 
     // Calls the gas method for each car once
-    void gas(int amount) {
+    @Override
+    public void gas(int amount) {
         double gas =  amount / 100.0;
         System.out.println(gas);
         for (Vehicle car : vehicles) {
@@ -88,55 +97,55 @@ public class CarController {
             System.out.println(car.getCurrentSpeed());
         }
     }
-
-    void brake(int amount) {
+    @Override
+    public void brake(int amount) {
         double brake = ((double) amount) / 100;
         for (Vehicle car : vehicles) {
             System.out.println("brake 0");
             car.brake(brake);
         }
     }
-
-    void turboOn() {
+    @Override
+   public void turboOn() {
         for (Vehicle car : vehicles) {
             if (car instanceof Saab95) {
                 ((Saab95) car).setTurboOn();
             }
         }
     }
-    
-    void turboOff() {
+    @Override
+    public void turboOff() {
         for (Vehicle car : vehicles) {
             if (car instanceof Saab95) {
                 ((Saab95) car).setTurboOff();
             }
         }
     }
-    
-    void liftScaniaBed() {
+    @Override
+    public void liftScaniaBed() {
         for (Vehicle car : vehicles) {
             if (car instanceof Scania) {
                 ((Scania) car).raiseAngle(10); // Adjust increment as needed
             }
         }
     }
-    
-    void lowerScaniaBed() {
+    @Override
+    public void lowerScaniaBed() {
         for (Vehicle car : vehicles) {
             if (car instanceof Scania) {
                 ((Scania) car).lowerAngle(10); // Adjust decrement as needed
             }
         }
     }
-    
-    void stopAllCars () {
+    @Override
+    public void stopAllCars () {
         for (Vehicle car : vehicles) {
             car.stopEngine();
         }
 
     }
-
-    void startAllCars () {
+    @Override
+    public void startAllCars () {
         for (Vehicle car : vehicles) {
             car.startEngine();
         }

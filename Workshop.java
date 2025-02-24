@@ -1,4 +1,4 @@
-import java.awt.Point;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +9,7 @@ public class Workshop<T extends Vehicle>{
     private List<T> workshopList= new ArrayList<>(capacity);
     private double Xposition;
     private double Yposition;
+    
     public Workshop(int capacity, T model,double Xposition, double Yposition){
         this.capacity = capacity;
         this.model = model;
