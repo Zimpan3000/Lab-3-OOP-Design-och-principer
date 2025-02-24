@@ -1,0 +1,24 @@
+Vilka beroenden är nödvändiga?
+CarController är beroende av Vehicle och Vehicle är beroende av Car. Dessa beroenden är nödvändiga eftersom CarController måste kunna styra fordon och Vehicle innehåller bilarnas grundläggande funktionalitet.
+
+Vilka klasser är beroende av varandra som inte borde vara det?  
+CarController och CarView är onödigt beroende av varandra, vilket skapar en cirkulär koppling. Detta problem kan brytas genom att införa ett interface mellan dem, så att de inte direkt refererar till varandra.
+
+Finns det starkare beroenden än nödvändigt?
+Ja, Vehicle är en mycket stark klass eftersom den innehåller allt som ett fordon behöver för att köra. Detta gör det svårt att göra ändringar utan att påverka många delar av systemet. Genom att dela upp ansvaret kan vi minska detta starka beroende. Till exempel att använda oss av en Positionmanagerclass.
+
+Kan ni identifiera några brott mot övriga designprinciper vi pratat om i kursen?  
+Ja, Vehicle har svag sammanhållning eftersom den ansvarar för många saker samtidigt. CarController är inte generaliserade, vilket innebär att varje instans av bilen bara ska finnas en gång. Workshop saknar en getter vilket gör den svårare att arbeta med. Dessutom ska knapparna i CarView kunna styra funktioner i vehicle direkt istället för att gå genom CarController.
+
+Vilka ansvarsområden har era klasser?  
+Vehicle hanterar position, hastighet och den övergripande representationen av bilen. CarController ansvarar för att styra bilarna medan CarView sköter den grafiska representationen.
+
+Vilka anledningar har de att förändras? 
+För att följa Separation of Concerns (SoC) kan vi flytta delar av vehicle till separata klasser. Vi kan till exempel skapa en separat klass för att hantera position och en annan för att hantera motor och hastighet.
+
+På vilka klasser skulle ni behöva tillämpa dekomposition för att bättre följa SoC och SRP?
+Vehicle bör delas eftersom den har för mycket ansvar. En möjlig lösning är att skapa en PositionManager som hanterar position och en separat klass för motor och hastighet. Detta gör att vi bättre kan separera logiken och minska klassens komplexitet.
+
+Finns det några delar av planen som går att utföra parallellt, av olika utvecklare som arbetar oberoende av varandra? Om inte, finns det något sätt att omformulera planen så att en sådan arbetsdelning är möjlig?  
+Ja, CarFactory kan köras oberoende av andra förändringar, eftersom det bara handlar om hur bilar skapas. Dessutom kan Movable-funktionen från Vehicle flyttas till en separat Movable-klass parallellt. Genom att dela upp arbetet på detta sätt kan flera utvecklare arbeta samtidigt utan att störa varandra.
+
