@@ -17,7 +17,7 @@ public class CarView extends JFrame{
     private static final int X = 800;
     private static final int Y = 800;
 
-    // The controller member
+    
     private CarcontrollerMethods carC;
 
     DrawPanel drawPanel = new DrawPanel(X, Y-240);
@@ -33,8 +33,10 @@ public class CarView extends JFrame{
     JButton brakeButton = new JButton("Brake");
     JButton turboOnButton = new JButton("Saab Turbo on");
     JButton turboOffButton = new JButton("Saab Turbo off");
-    JButton liftBedButton = new JButton("Scania Lift Bed");
-    JButton lowerBedButton = new JButton("Lower Lift Bed");
+    JButton liftBedButton = new JButton("Lower Bed");
+    JButton lowerBedButton = new JButton("Lift Bed");
+    JButton turnleftButton = new JButton("Turn Left");
+    JButton turnrightButton = new JButton("Turn Right!!");
 
     JButton startButton = new JButton("Start all cars");
     JButton stopButton = new JButton("Stop all cars");
@@ -75,7 +77,7 @@ public class CarView extends JFrame{
 
         this.add(gasPanel);
 
-        controlPanel.setLayout(new GridLayout(2,4));
+        controlPanel.setLayout(new GridLayout(2,5));
 
         controlPanel.add(gasButton, 0);
         controlPanel.add(turboOnButton, 1);
@@ -83,6 +85,8 @@ public class CarView extends JFrame{
         controlPanel.add(brakeButton, 3);
         controlPanel.add(turboOffButton, 4);
         controlPanel.add(lowerBedButton, 5);
+        controlPanel.add(turnleftButton,6);
+        controlPanel.add(turnrightButton, 7);
         controlPanel.setPreferredSize(new Dimension((X/2)+4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
@@ -159,6 +163,20 @@ public class CarView extends JFrame{
             @Override
         public void actionPerformed(ActionEvent e){
             carC.lowerScaniaBed();
+        }
+        });
+
+        turnleftButton.addActionListener(new ActionListener(){
+            @Override
+        public void actionPerformed(ActionEvent e){
+            carC.turnLeft();
+        }
+        });
+
+        turnrightButton.addActionListener(new ActionListener(){
+            @Override
+        public void actionPerformed(ActionEvent e){
+            carC.turnRight();
         }
         });
 

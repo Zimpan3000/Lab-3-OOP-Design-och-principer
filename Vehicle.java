@@ -1,7 +1,6 @@
 import java.awt.*;
-import java.util.HashMap;
 
-public abstract class Vehicle implements Moveable {
+public abstract class Vehicle {
 
 
     private int nrDoors; 
@@ -11,9 +10,9 @@ public abstract class Vehicle implements Moveable {
     private String modelName;
     private int widthOfVehicle; 
 
-    private HashMap<String, Double> dictionary = new HashMap<>();
-    private Point direction = new Point(0,1);
-
+    //private HashMap<String, Double> dictionary = new HashMap<>();
+   // private Point direction = new Point(0,1);
+    PositionManager positionManager = new PositionManager();
     private Boolean outOfOrder = false; // if car is on transport or in workshop
 
     public  Vehicle(int nrDoors, double enginePower, double currentSpeed, Color color, String modelname, int widthOfVehicle){
@@ -24,8 +23,8 @@ public abstract class Vehicle implements Moveable {
         this.modelName = modelname;
         this.widthOfVehicle = widthOfVehicle;
 
-        dictionary.put("x", 0.0);
-        dictionary.put("y", 0.0);
+        positionManager.addPositionX(0.0);
+        positionManager.addPositionY(0.0);
     }
 
     public int getwidthOfCar(){
@@ -114,92 +113,40 @@ public abstract class Vehicle implements Moveable {
         
     }
 
-    @Override
+    
     public void move() {
         if (!outOfOrder) {
-        double speed = getCurrentSpeed();
-        double x = speed * direction.x;
-        double y = speed * direction.y;
-        dictionary.put("x", dictionary.get("x") + x);
-        dictionary.put("y", dictionary.get("y") + y);
+            positionManager.move(getCurrentSpeed());
         } else {
             System.out.println("handbreak is on");
         }
 
     }
 
-    @Override 
     public void turnLeft() {
-        switch (direction.y) {
-            case 1:
-                direction = new Point(-1,0);
-                break;
-    
-            case 0:
-                if (direction.x == -1) {
-                     direction = new Point(0,-1);
-                     break;
-                    
-                } else if (direction.x == 1) {
-                    direction = new Point(0,1);
-                    break;
-                }
-            case -1:
-                direction = new Point(1,0);
-                break;
-                
-             default:
-                break;
-
-        }
+         positionManager.turnLeft();
     }
-
-    @Override
-    public void turnRight() {
-        switch (direction.y) {
-            case 1:
-                direction = new Point(1,0);
-                break;
     
-            case 0:
-                if (direction.x == -1) {
-                     direction = new Point(0,1);
-                     break;
-                    
-                } else if (direction.x == 1) {
-                    direction = new Point(0,-1);
-                    break;
-                }
-            case -1:
-                direction = new Point(-1,0);
-                break;
-                
-             default:
-                break;
-
-        }
+    
+    public void turnRight() {
+        positionManager.turnRight();
     }
 
     public Double getPositionX () {
-        return dictionary.get("x");
+        return positionManager.getPositionX();
     }
 
     public Double getPositionY () {
-        return dictionary.get("y");
+        return positionManager.getPositionY();
     }
 
      public void addPositionX (Double x) {
-        dictionary.put("x", x);
+        positionManager.addPositionX(x);
     }
     
     public void addPositionY (Double y) {
-        dictionary.put("y", y);
+        positionManager.addPositionY(y);
     }
-    public Point getDirection () {
-        return direction;
-    }
-    
-    
 }    
 
     

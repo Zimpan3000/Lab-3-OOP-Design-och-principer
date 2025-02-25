@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.awt.Point;
 /*
 * This class represents the Controller part in the MVC pattern.
 * It's responsibilities is to listen to the View and responds in a appropriate manner by
@@ -22,6 +21,9 @@ public class CarController implements CarcontrollerMethods{
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
+    static ScaniaFactory scaniaFactory = new ScaniaFactory();
+    static Volvo240Factory volvo240Factory = new Volvo240Factory();
+    static SaabFactory saabFactory = new SaabFactory();
     // A list of cars, modify if needed
     // ArrayList<ACar> cars = new ArrayList<>();
 
@@ -30,16 +32,17 @@ public class CarController implements CarcontrollerMethods{
     public static void main(String[] args) {
         // Instance of this class
         CarController cc = new CarController();
-
         
-        Scania newsScania = new Scania();
-        newsScania.addPositionX(100.0);
-        Saab95 newSaab = new Saab95();
+        
+        Scania newScania = scaniaFactory.createCar();
+        Volvo240 newVolvo240 = volvo240Factory.createCar();
+        Saab95 newSaab = saabFactory.createCar();
+        newScania.addPositionX(100.0);
         newSaab.addPositionX(200.0);
-        Volvo240 newVolvo240 = new Volvo240();
         
+       
         cc.vehicles.add(newSaab);
-        cc.vehicles.add(newsScania);
+        cc.vehicles.add(newScania);
         cc.vehicles.add(newVolvo240);
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -151,6 +154,28 @@ public class CarController implements CarcontrollerMethods{
         }
 
     }
+
+    @Override
+    public void turnLeft(){
+        for (Vehicle car : vehicles) {
+            car.turnLeft();
+        }
+        
+    }
+
+@Override
+    public void turnRight() {
+        for (Vehicle car : vehicles) {
+            car.turnRight();
+        }
+
+    }
+
 }
+
+
+
+
+
 
 

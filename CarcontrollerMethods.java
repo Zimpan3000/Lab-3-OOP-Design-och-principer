@@ -7,4 +7,6 @@ public interface CarcontrollerMethods {
     void lowerScaniaBed();
     void stopAllCars();
     void startAllCars();
+    void turnLeft();
+    void turnRight();
 }
