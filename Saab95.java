@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Saab95 extends Car {
 
-   private double turbo = 100.;
+   private double turbo = 10;
    private boolean turboOn = false;
 
     public Saab95(){

@@ -12,8 +12,7 @@ public class DrawPanel extends JPanel{
 
     // Just a single image, TODO: Generalize
     
-    BufferedImage image;
-    private final HashMap<String, ImageData> images = new HashMap<>();  
+    private final HashMap<Vehicle, ImageData> images = new HashMap<>();  
     
     // TODO : add multiple images for every car
     // To keep track of a single car's position
@@ -24,8 +23,8 @@ public class DrawPanel extends JPanel{
     Point volvoWorkshopPoint = new Point(0,300);
 
     // TODO: Make this general for all cars
-    void moveit(int x, int y, String modelName){
-        images.get(modelName).position = new Point(x,y);
+    void moveit(int x, int y, Vehicle vehicle){
+        images.get(vehicle).position = new Point(x,y);
 
     }
 
@@ -36,36 +35,36 @@ public class DrawPanel extends JPanel{
         this.setBackground(Color.green);
         // Print an error message in case file is not found with a try/catch block
         try {
-            
-            // You can remove the "pics" part if running outside of IntelliJ and
-            // everything is in the same main folder.
-            // volvoImage = ImageIO.read(new File("Volvo240.jpg"));
-
-            // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to pics.
-            // if you are starting in IntelliJ.
-        
-            
-            
-
-
-            image = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
-            images.put("Saab95", new ImageData(image, new Point(0, 0)));
-            image = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
-            images.put("Scania", new ImageData(image, new Point(100, 0)));
-            image = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
-            images.put("Volvo240",new ImageData(image, new Point(200, 0)));
-            volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
-            
-        } catch (IOException ex)
-        
-        {
-            ex.printStackTrace();
+        volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
 
+    public void setUpCar(Vehicle vehicle, Point point) {
+        BufferedImage image;
+        //image = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Saab95.jpg"));
+        //images.put(new Saab95(), new ImageData(image, new Point(0, 0)));
+        //image = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Scania.jpg"));
+        //images.put("Scania", new ImageData(image, new Point(100, 0)));
+        try {
+            image = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/" + vehicle.getmodelname() + ".jpg"));
+            images.put(vehicle, new ImageData(image, point));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //images.put("Volvo240",new ImageData(image, new Point(200, 0)));
+        //volvoWorkshopImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/VolvoBrand.jpg"));
+    }
+
     // This method is called each time the panel updates/refreshes/repaints itself
     // TODO: Change to suit your needs.
+
+    public void removeCar (Vehicle vehicle) {
+        images.remove(vehicle);
+    }
     
     private static class ImageData {
         Image image;
@@ -77,6 +76,7 @@ public class DrawPanel extends JPanel{
         }
     }
     
+
     
     @Override
     protected void paintComponent(Graphics g) {
@@ -87,5 +87,8 @@ public class DrawPanel extends JPanel{
 
         g.drawImage(volvoWorkshopImage, volvoWorkshopPoint.x, volvoWorkshopPoint.y, null);
     }
+
+    
+    
 }
 

@@ -9,4 +9,8 @@ public interface CarcontrollerMethods {
     void startAllCars();
     void turnLeft();
     void turnRight();
+    void addCar();
+    void removeCar();
+    
+
 }

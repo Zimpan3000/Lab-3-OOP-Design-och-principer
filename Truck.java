@@ -1,24 +1,23 @@
 
 import java.awt.*;
 
-public abstract class Truck extends Vehicle implements truckBedfunctionality{
+public abstract class Truck extends Vehicle {
     
     private double TruckSpeedFactor = 10;
-    private boolean TruckBedIsClosed = true;
-    
+    private Flak flak = new Flak();
     
 
     public Truck(int nrDoors, double enginePower, double currentSpeed, Color color, String modelname, int widthOfCar){ 
         super(nrDoors, enginePower, currentSpeed, color, modelname, widthOfCar);
     }
-
+    
     public void fullyClose(){
-        TruckBedIsClosed = true;
+        flak.close();
     }
     
     public void fullyOpen(){
         if (currentSpeed == 0) { 
-         TruckBedIsClosed = false;
+         flak.open();
         }
     }
 
@@ -30,7 +29,7 @@ public abstract class Truck extends Vehicle implements truckBedfunctionality{
     
 
     public Boolean getTruckBedIsClosed(){
-        return TruckBedIsClosed;
+        return flak.getState();
     }
 
     @Override

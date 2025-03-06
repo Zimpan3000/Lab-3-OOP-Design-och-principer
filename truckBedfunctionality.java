@@ -1,4 +1,4 @@
 public interface truckBedfunctionality {
-    void fullyClose();
-    void fullyOpen();
+    void fullyClose(Flak flak);
+    void fullyOpen(Flak flak);
 }

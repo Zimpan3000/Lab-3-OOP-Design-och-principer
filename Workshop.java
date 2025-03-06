@@ -57,4 +57,7 @@ public class Workshop<T extends Vehicle>{
     public double Ygetposition(){
         return Yposition;
     }
+    public int getCarsinWS(){
+        return workshopList.size();
+    }
 }
